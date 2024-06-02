@@ -94,7 +94,7 @@ int main() {
                 break;
             }
 
-            cout << "Quieres seguir jugando? S/N: ";
+            cout << "Quieres agarrar otra carta? S/N: ";
             cin >> opc;
             while (opc != 'n' && opc != 'N' && opc != 'S' && opc != 's') {
                 cout << "\nInput incorrecto. Por favor, ingresa S (si) o N (no): ";
@@ -108,10 +108,17 @@ int main() {
             cout << "La siguiente carta era: " << miCarta.nombreCarta << " de " << miCarta.tipoCarta << endl;
             cout<<"Puntaje final: "<<contador<<"\n";
         }
-
-        system("pause");
+        cout << "Quieres jugar de nuevo? S/N: ";
+        cin >> opc;
+        while (opc != 'n' && opc != 'N' && opc != 'S' && opc != 's') {
+            cout << "\nInput incorrecto. Por favor, ingresa S (si) o N (no): ";
+            cin >> opc;
+        }
+        if (opc == 'N' || opc == 'n') {
+            break;
+        }
         system("cls");
-        return 0;
+        
     }
     
 }
