@@ -23,20 +23,26 @@ public:
         int valorCarta;
 
         switch (valor) {
-            case 1:
-                nombre = "As";
-                valorCarta = 11;
-                break;
-            case 11:
-            case 12:
-            case 13:
-                nombre = (valor == 11) ? "J" : (valor == 12) ? "Q" : "K";
-                valorCarta = 10;
-                break;
-            default:
-                nombre = to_string(valor);
-                valorCarta = valor;
-        }
+                    case 1:
+                        nombre = "As";
+                        valorCarta = 11;
+                        break;
+                    case 11:
+                        nombre = "J";
+                        valorCarta = 10;
+                        break;
+                    case 12:
+                        nombre = "Q";
+                        valorCarta = 10;
+                        break;
+                    case 13:
+                        nombre = "K";
+                        valorCarta = 10;
+                        break;
+                    default:
+                        nombre = to_string(valor);
+                        valorCarta = valor;
+                }
 
         int tipoIndex = rand() % 4;
         string tipo = tipos[tipoIndex];
@@ -46,7 +52,8 @@ public:
 };
 
 int main() {
-    srand(time(NULL));
+    while(true){
+srand(time(NULL));
     Baraja baraja;
     int contador = 0;
     int numAses = 0;
@@ -76,7 +83,8 @@ int main() {
         }
 
         if (contador > 21) {
-            cout << "Tu puntaje excedio los 21 puntos, has perdido\n";
+            cout << "Tu puntaje excedio los 21 puntos, has perdido\n"<<endl;
+            cout<<"Puntaje final: "<<contador<<"\n";
             break;
         }
 
@@ -104,4 +112,6 @@ int main() {
     system("pause");
     system("cls");
     return 0;
+    }
+    
 }
