@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <vector>
 #include <string>
 
 using namespace std;
@@ -16,50 +15,33 @@ public:
 };
 
 class Baraja {
-private:
-    vector<Carta> cartas;
-    
 public:
-    Baraja() {
-        const string tipos[] = {"corazones", "diamantes", "treboles", "picas"};
-        for (const string& tipo : tipos) {
-            for (int valor = 1; valor <= 13; ++valor) {
-                string nombre;
-                int valorCarta;
-                switch (valor) {
-                    case 1:
-                        nombre = "As";
-                        valorCarta = 11;
-                        break;
-                    case 11:
-                        nombre = "J";
-                        valorCarta = 10;
-                        break;
-                    case 12:
-                        nombre = "Q";
-                        valorCarta = 10;
-                        break;
-                    case 13:
-                        nombre = "K";
-                        valorCarta = 10;
-                        break;
-                    default:
-                        nombre = to_string(valor);
-                        valorCarta = valor;
-                }
-                cartas.push_back(Carta(valorCarta, tipo, nombre));
-            }
-        }
-    }
-
     Carta sacarCarta() {
-        if (cartas.empty()) {
-            throw runtime_error("No hay más cartas en la baraja");
+        const string tipos[] = {"corazones", "diamantes", "treboles", "picas"};
+        int valor = rand() % 13 + 1;
+        string nombre;
+        int valorCarta;
+
+        switch (valor) {
+            case 1:
+                nombre = "As";
+                valorCarta = 11;
+                break;
+            case 11:
+            case 12:
+            case 13:
+                nombre = (valor == 11) ? "J" : (valor == 12) ? "Q" : "K";
+                valorCarta = 10;
+                break;
+            default:
+                nombre = to_string(valor);
+                valorCarta = valor;
         }
-        int index = rand() % cartas.size();
-        Carta carta = cartas[index];
-        cartas.erase(cartas.begin() + index);
-        return carta;
+
+        int tipoIndex = rand() % 4;
+        string tipo = tipos[tipoIndex];
+
+        return Carta(valorCarta, tipo, nombre);
     }
 };
 
@@ -85,7 +67,7 @@ int main() {
             if (valorAs == 11) numAses++;
         }
 
-        cout << "\nHa salido la carta " << miCarta.nombreCarta << " de " << miCarta.tipoCarta << endl;
+        cout << "Ha salido la carta " << miCarta.nombreCarta << " de " << miCarta.tipoCarta << endl;
         contador += miCarta.valorCarta;
 
         while (contador > 21 && numAses > 0) {
@@ -107,15 +89,18 @@ int main() {
         cout << "Quieres seguir jugando? S/N: ";
         cin >> opc;
         while (opc != 'n' && opc != 'N' && opc != 'S' && opc != 's') {
-            cout << "Input incorrecto. Por favor, ingresa S (si) o N (no): ";
+            cout << "\nInput incorrecto. Por favor, ingresa S (si) o N (no): ";
             cin >> opc;
         }
+        system("cls");
     }
 
     if (opc == 'N' || opc == 'n') {
         Carta miCarta = baraja.sacarCarta();
         cout << "La siguiente carta era: " << miCarta.nombreCarta << " de " << miCarta.tipoCarta << endl;
+        cout<<"Puntaje final: "<<contador<<"\n";
     }
+
     system("pause");
     system("cls");
     return 0;
